@@ -1,15 +1,13 @@
-use syntect::dumps::dump_to_file;
+use syntect::dumps;
 use syntect::easy::HighlightLines;
-use syntect::highlighting::{Style, ThemeSet};
+use syntect::highlighting::Style;
 use syntect::parsing::SyntaxSet;
 use syntect::util::{as_24_bit_terminal_escaped, LinesWithEndings};
 
 fn main() {
     // Load these once at the start of your program
     let ps = SyntaxSet::load_defaults_newlines();
-    let th =
-        ThemeSet::get_theme("assets/sublime-monokai-extended/Monokai Extended.tmTheme").unwrap();
-    dump_to_file(&th, "assets.bin").unwrap();
+    let th = dumps::from_binary(include_bytes!("../assets.bin"));
 
     let syntax = ps.find_syntax_by_extension("json").unwrap();
     let mut h = HighlightLines::new(syntax, &th);
@@ -17,7 +15,7 @@ fn main() {
     for line in LinesWithEndings::from(s) {
         // LinesWithEndings enables use of newlines mode
         let ranges: Vec<(Style, &str)> = h.highlight(line, &ps);
-        let escaped = as_24_bit_terminal_escaped(&ranges[..], true);
+        let escaped = as_24_bit_terminal_escaped(&ranges[..], false);
         println!("{}", escaped);
     }
 }
