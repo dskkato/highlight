@@ -1,0 +1,3 @@
+[submodule "assets/sublime-monokai-extended"]
+	path = assets/sublime-monokai-extended
+	url = https://github.com/jonschlinkert/sublime-monokai-extended

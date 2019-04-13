@@ -1,0 +1,8 @@
+[package]
+name = "highlight"
+version = "0.1.0"
+authors = ["Daisuke Kato <kato.daisuke429@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+syntect = "3.2"
