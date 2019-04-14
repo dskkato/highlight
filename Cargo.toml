@@ -6,3 +6,4 @@ edition = "2018"
 
 [dependencies]
 syntect = "3.2"
+atty = "0.2.11"
