@@ -8,6 +8,8 @@ use syntect::highlighting::Style;
 use syntect::parsing::SyntaxSet;
 use syntect::util::{as_24_bit_terminal_escaped, LinesWithEndings};
 
+use std::process::Command;
+
 fn main() {
     // Load these once at the start of your program
     let ps = SyntaxSet::load_defaults_newlines();
@@ -26,4 +28,10 @@ fn main() {
             println!("{}", line);
         }
     }
+
+    let output = Command::new("rjo").arg("a=b").output().unwrap();
+    assert!(output.status.success());
+    assert!(output.stderr.is_empty());
+    println!("{:?}", output);
+    assert_eq!(output.stdout, b"{\"a\":\"b\"}\n");
 }
